@@ -1,0 +1,9 @@
+FROM golang:1.18.2-bullseye AS builder
+RUN go version
+
+ADD . /gobuild
+WORKDIR /gobuild
+RUN make clean-all verify-deps static
+RUN mv /gobuild/dapr-cert-transformer /
+WORKDIR /
+RUN rm -rf /gobuild
